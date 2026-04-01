@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #faf6f2;
+  --foreground: #2b180a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .gpu-accelerated {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .glass-dark {
+    background: rgba(43, 24, 10, 0.6);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-light {
+    background: rgba(250, 246, 242, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(43, 24, 10, 0.06);
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #2b180a 0%, #94877c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(250, 246, 242, 0) 0%,
+      rgba(250, 246, 242, 0.8) 50%,
+      #faf6f2 100%
+    );
+  }
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  p {
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+  }
+
+  .bg-primary {
+    background-color: #faf6f2 !important;
+  }
+
+  .bg-secondary {
+    background-color: #2b180a !important;
+  }
+
+  .text-primary {
+    color: #faf6f2 !important;
+  }
+
+  .text-secondary {
+    color: #2b180a !important;
+  }
+
+  .text-accent {
+    color: #94877c !important;
+  }
+
+  .border-secondary\/10 {
+    border-color: rgba(43, 24, 10, 0.1) !important;
+  }
+
+  .border-primary\/10 {
+    border-color: rgba(250, 246, 242, 0.1) !important;
+  }
+}
