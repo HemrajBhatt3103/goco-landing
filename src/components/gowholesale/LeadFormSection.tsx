@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
-import { Check, Loader2 } from "lucide-react";
+import { Check } from "lucide-react";
 
 interface FormData {
   ownerName: string;
@@ -52,7 +52,6 @@ export default function LeadFormSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [formData, setFormData] = useState<FormData>({
     ownerName: "",
@@ -79,7 +78,7 @@ export default function LeadFormSection() {
   );
 
   const handleSubmit = useCallback(
-    async (e: React.FormEvent) => {
+    (e: React.FormEvent) => {
       e.preventDefault();
 
       const validationErrors = validateForm(formData);
@@ -88,22 +87,22 @@ export default function LeadFormSection() {
         return;
       }
 
-      setIsSubmitting(true);
+      const message = [
+        "Hello! I'm interested in GoWholesale.",
+        "",
+        "My Details:",
+        `Name: ${formData.ownerName}`,
+        `Business: ${formData.businessName}`,
+        `Phone: ${formData.phone}`,
+        `Email: ${formData.email}`,
+        `Type: ${formData.businessType}`,
+        `City: ${formData.city}`,
+      ].join("\n");
 
-      try {
-        const response = await fetch("/api/gowholesale-leads", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        });
-
-        if (!response.ok) throw new Error("Submission failed");
-        setSubmitted(true);
-      } catch {
-        setSubmitted(true);
-      } finally {
-        setIsSubmitting(false);
-      }
+      const phoneNumber = "916351324531";
+      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, "_blank");
+      setSubmitted(true);
     },
     [formData]
   );
@@ -121,10 +120,10 @@ export default function LeadFormSection() {
               <Check className="w-8 h-8 text-accent" />
             </div>
             <h2 className="text-3xl sm:text-4xl font-semibold text-secondary mb-4">
-              Thanks. Our team will reach out shortly.
+              Redirecting to WhatsApp...
             </h2>
             <p className="text-secondary/60 text-lg">
-              Your request has been received. We&apos;ll contact you within 24 hours.
+              Your details have been prepared. Complete your request on WhatsApp to get started.
             </p>
           </motion.div>
         </div>
@@ -243,19 +242,11 @@ export default function LeadFormSection() {
           <div className="pt-4 flex justify-center">
             <motion.button
               type="submit"
-              disabled={isSubmitting}
               whileHover={{ scale: 1.02, y: -1 }}
               whileTap={{ scale: 0.98 }}
-              className="px-12 py-4 bg-secondary text-primary rounded-full text-sm font-medium tracking-wide hover:bg-secondary/90 transition-colors shadow-lg shadow-secondary/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+              className="px-12 py-4 bg-secondary text-primary rounded-full text-sm font-medium tracking-wide hover:bg-secondary/90 transition-colors shadow-lg shadow-secondary/20"
             >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  Submitting...
-                </>
-              ) : (
-                "Request Early Access"
-              )}
+              Continue on WhatsApp
             </motion.button>
           </div>
 
